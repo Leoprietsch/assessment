@@ -1,11 +1,23 @@
 function convertNumberToWords() {
-  var number = document.getElementById("number").value;
+  let number = document.getElementById("number").value;
 
-  var numberLenght = number.length;
-  var slicedNumbers = [];
+  let slicedNumbers = sliceNumber(number, 3);
+  console.log(slicedNumbers);
+
+  slicedNumbers.forEach((numberSlice) => {
+    let slicedSlice = sliceNumber(numberSlice, 1).reverse();
+    console.log(slicedSlice);
+  });
+
+  alert(number);
+}
+
+function sliceNumber(number, sliceLenght) {
+  let numberLenght = number.length;
+  let slicedNumbers = [];
 
   while (numberLenght > 0) {
-    numberLenght -= 3;
+    numberLenght -= sliceLenght;
 
     let numberSlice = number.slice(numberLenght);
 
@@ -13,23 +25,5 @@ function convertNumberToWords() {
     slicedNumbers.push(numberSlice);
   }
 
-  console.log(slicedNumbers);
-
-  slicedNumbers.forEach((slice) => {
-    var sliceLenght = slice.length;
-    var slicedSlices = [];
-
-    while (sliceLenght > 0) {
-      sliceLenght -= 1;
-
-      let sliceSlice = slice.slice(sliceLenght);
-
-      slice = slice.slice(0, sliceLenght);
-      slicedSlices.unshift(sliceSlice);
-    }
-
-    console.log(slicedSlices);
-  });
-
-  alert(number);
+  return slicedNumbers;
 }
