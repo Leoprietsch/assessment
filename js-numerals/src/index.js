@@ -13,5 +13,23 @@ function convertNumberToWords() {
     slicedNumbers.push(numberSlice);
   }
 
-  alert(slicedNumbers.join(", "));
+  console.log(slicedNumbers);
+
+  slicedNumbers.forEach((slice) => {
+    var sliceLenght = slice.length;
+    var slicedSlices = [];
+
+    while (sliceLenght > 0) {
+      sliceLenght -= 1;
+
+      let sliceSlice = slice.slice(sliceLenght);
+
+      slice = slice.slice(0, sliceLenght);
+      slicedSlices.unshift(sliceSlice);
+    }
+
+    console.log(slicedSlices);
+  });
+
+  alert(number);
 }
