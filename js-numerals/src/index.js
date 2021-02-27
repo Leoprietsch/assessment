@@ -1,4 +1,17 @@
 function convertNumberToWords() {
-  var inputVal = document.getElementById("number").value;
-  alert(inputVal);
+  var number = document.getElementById("number").value;
+
+  var numberLenght = number.length;
+  var slicedNumbers = [];
+
+  while (numberLenght > 0) {
+    numberLenght -= 3;
+
+    let numberSlice = number.slice(numberLenght);
+
+    number = number.slice(0, numberLenght);
+    slicedNumbers.push(numberSlice);
+  }
+
+  alert(slicedNumbers.join(", "));
 }
