@@ -32,6 +32,8 @@ const TENS = {
   9: "ninety",
 };
 
+const HUNDRED = "hundred";
+
 function convertNumberToWords() {
   let number = Number(document.getElementById("number").value);
 
@@ -48,7 +50,7 @@ function convertNumberToWords() {
 
       if (digits > 2) {
         let hundredsNumber = slicedSlice.shift();
-        numberWords.push(ONES[hundredsNumber] + " hundred");
+        numberWords.push(ONES[hundredsNumber] + " " + HUNDRED);
       }
 
       if (digits > 1) {
