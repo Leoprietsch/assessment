@@ -33,30 +33,64 @@ const TENS = {
 };
 
 function convertNumberToWords() {
-  let number = document.getElementById("number").value;
+  let number = Number(document.getElementById("number").value);
 
-  let slicedNumbers = sliceNumber(number, 3);
-  console.log(slicedNumbers);
+  let numberWords = [];
+  if (number === 0) {
+    numberWords.push(ONES[number]);
+  } else {
+    let slicedNumbers = sliceNumber(number, 3);
 
-  slicedNumbers.forEach((numberSlice) => {
-    let slicedSlice = sliceNumber(numberSlice, 1).reverse();
-    console.log(slicedSlice);
-  });
+    slicedNumbers.forEach((numberSlice) => {
+      let number = Number(numberSlice);
+      let slicedSlice = sliceNumber(number, 1);
+      const digits = slicedSlice.length;
 
-  alert(number);
+      if (digits > 2) {
+        let hundredsNumber = slicedSlice.shift();
+        numberWords.push(ONES[hundredsNumber] + " hundred");
+      }
+
+      if (digits > 1) {
+        let tens = slicedSlice.shift();
+        let unit = slicedSlice.shift();
+        let number = Number(tens.concat(unit));
+
+        if (number > 0 && number < 20) {
+          numberWords.push(ONES[Number(number)]);
+        } else if (number >= 20) {
+          let tensAndUnit = TENS[tens];
+
+          if (unit > 0) {
+            tensAndUnit += "-" + ONES[unit];
+          }
+
+          numberWords.push(tensAndUnit);
+        }
+      } else {
+        let unit = slicedSlice.shift();
+
+        if (unit > 0) {
+          numberWords.push(ONES[unit]);
+        }
+      }
+    });
+  }
+  alert(numberWords.join(" "));
 }
 
 function sliceNumber(number, sliceLenght) {
-  let numberLenght = number.length;
+  let numberString = number.toString();
+  let numberLenght = numberString.length;
   let slicedNumbers = [];
 
   while (numberLenght > 0) {
     numberLenght -= sliceLenght;
 
-    let numberSlice = number.slice(numberLenght);
+    let numberSlice = numberString.slice(numberLenght < 0 ? 0 : numberLenght);
 
-    number = number.slice(0, numberLenght);
-    slicedNumbers.push(numberSlice);
+    slicedNumbers.unshift(numberSlice);
+    numberString = numberString.slice(0, numberLenght);
   }
 
   return slicedNumbers;
