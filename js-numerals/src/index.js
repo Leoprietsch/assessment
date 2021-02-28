@@ -82,72 +82,70 @@ const SPACE = " ";
 
 function convertNumberToWords() {
   let number = BigInt(document.getElementById("number").value);
+  if (number == 0) return alert(ONES[number]);
 
-  let numberWords = [];
-  if (number == 0) {
-    numberWords.push(ONES[number]);
-  } else {
-    let slicedNumbers = sliceNumber(number, 3).reverse();
+  let words = [];
 
-    slicedNumbers.forEach((numberSlice, index) => {
-      let number = Number(numberSlice);
-      if (number === 0) return;
-      let slicedSlice = sliceNumber(number, 1);
-      const digits = slicedSlice.length;
+  let hundredsSlices = sliceNumber(number, 3);
 
-      let sliceWords = [];
+  hundredsSlices.reverse().forEach((slice, index) => {
+    let sliceNumberValue = Number(slice);
+    if (sliceNumberValue === 0) return;
 
-      if (digits > 2) {
-        let hundredsNumber = slicedSlice.shift();
-        sliceWords.push(ONES[hundredsNumber] + SPACE + HUNDRED);
-      }
+    let digits = sliceNumber(sliceNumberValue, 1);
+    const totalDigits = digits.length;
 
-      if (digits > 1) {
-        let tens = slicedSlice.shift();
-        let unit = slicedSlice.shift();
-        let number = Number(tens.concat(unit));
+    let sliceWords = [];
 
-        if (number > 0 && number < 20) {
-          sliceWords.push(ONES[Number(number)]);
-        } else if (number >= 20) {
-          let tensAndUnitWords = TENS[tens];
+    if (totalDigits > 2) {
+      let hundredsDigit = digits.shift();
+      sliceWords.push(ONES[hundredsDigit] + SPACE + HUNDRED);
+    }
 
-          if (unit != 0) {
-            tensAndUnitWords += "-" + ONES[unit];
-          }
+    let unitsDigit = digits.pop();
+    let tensDigit = digits.pop() || "";
+    let tensAndUnitsValue = Number(tensDigit + unitsDigit);
 
-          sliceWords.push(tensAndUnitWords);
+    if (totalDigits > 1) {
+      if (tensAndUnitsValue > 0 && tensAndUnitsValue < 20) {
+        sliceWords.push(ONES[tensAndUnitsValue]);
+      } else if (tensAndUnitsValue >= 20) {
+        let tensAndUnitsWords = TENS[tensDigit];
+
+        if (unitsDigit != 0) {
+          tensAndUnitsWords += "-" + ONES[unitsDigit];
         }
-      } else {
-        let unit = slicedSlice.shift();
 
-        if (unit > 0) {
-          sliceWords.push(ONES[unit]);
-        }
+        sliceWords.push(tensAndUnitsWords);
       }
+    } else {
+      if (unitsDigit > 0) {
+        sliceWords.push(ONES[unitsDigit]);
+      }
+    }
 
-      if (sliceWords) {
-        if (index > 0) sliceWords.push(LARGES[index - 1]);
-        numberWords.unshift(sliceWords.join(SPACE));
-      }
-    });
-  }
-  alert(numberWords.join(SPACE));
+    if (sliceWords) {
+      if (index > 0) sliceWords.push(LARGES[index - 1]);
+      words.unshift(sliceWords.join(SPACE));
+    }
+  });
+
+  alert(words.join(SPACE));
 }
 
 function sliceNumber(number, sliceLenght) {
-  let numberString = number.toString();
-  let numberLenght = numberString.length;
-  let slicedNumbers = [];
+  number = number.toString();
+  let numberLenght = number.length;
+  let slices = [];
 
   while (numberLenght > 0) {
     numberLenght -= sliceLenght;
 
-    let numberSlice = numberString.slice(numberLenght < 0 ? 0 : numberLenght);
+    let numberSlice = number.slice(numberLenght < 0 ? 0 : numberLenght);
 
-    slicedNumbers.unshift(numberSlice);
-    numberString = numberString.slice(0, numberLenght);
+    slices.unshift(numberSlice);
+    number = number.slice(0, numberLenght);
   }
 
-  return slicedNumbers;
+  return slices;
 }
