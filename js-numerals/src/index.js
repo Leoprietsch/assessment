@@ -34,6 +34,8 @@ const TENS = {
 
 const HUNDRED = "hundred";
 
+const SPACE = " ";
+
 function convertNumberToWords() {
   let number = Number(document.getElementById("number").value);
 
@@ -41,16 +43,18 @@ function convertNumberToWords() {
   if (number === 0) {
     numberWords.push(ONES[number]);
   } else {
-    let slicedNumbers = sliceNumber(number, 3);
+    let slicedNumbers = sliceNumber(number, 3).reverse();
 
     slicedNumbers.forEach((numberSlice) => {
       let number = Number(numberSlice);
       let slicedSlice = sliceNumber(number, 1);
       const digits = slicedSlice.length;
 
+      let sliceWords = [];
+
       if (digits > 2) {
         let hundredsNumber = slicedSlice.shift();
-        numberWords.push(ONES[hundredsNumber] + " " + HUNDRED);
+        sliceWords.push(ONES[hundredsNumber] + SPACE + HUNDRED);
       }
 
       if (digits > 1) {
@@ -59,26 +63,28 @@ function convertNumberToWords() {
         let number = Number(tens.concat(unit));
 
         if (number > 0 && number < 20) {
-          numberWords.push(ONES[Number(number)]);
+          sliceWords.push(ONES[Number(number)]);
         } else if (number >= 20) {
-          let tensAndUnit = TENS[tens];
+          let tensAndUnitWords = TENS[tens];
 
-          if (unit > 0) {
-            tensAndUnit += "-" + ONES[unit];
+          if (unit != 0) {
+            tensAndUnitWords += "-" + ONES[unit];
           }
 
-          numberWords.push(tensAndUnit);
+          sliceWords.push(tensAndUnitWords);
         }
       } else {
         let unit = slicedSlice.shift();
 
         if (unit > 0) {
-          numberWords.push(ONES[unit]);
+          sliceWords.push(ONES[unit]);
         }
       }
+
+      !sliceWords || numberWords.unshift(sliceWords.join(SPACE));
     });
   }
-  alert(numberWords.join(" "));
+  alert(numberWords.join(SPACE));
 }
 
 function sliceNumber(number, sliceLenght) {
