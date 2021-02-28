@@ -81,10 +81,10 @@ const HUNDRED = "hundred";
 const SPACE = " ";
 
 function convertNumberToWords() {
-  let number = Number(document.getElementById("number").value);
+  let number = BigInt(document.getElementById("number").value);
 
   let numberWords = [];
-  if (number === 0) {
+  if (number == 0) {
     numberWords.push(ONES[number]);
   } else {
     let slicedNumbers = sliceNumber(number, 3).reverse();
