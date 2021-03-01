@@ -106,6 +106,13 @@ function convertNumberToWords() {
     let tensDigit = digits.pop() || "";
     let tensAndUnitsValue = Number(tensDigit + unitsDigit);
 
+    if (
+      (totalDigits > 2 || hundredsSlices.length - 1 > index) &&
+      tensAndUnitsValue > 0
+    ) {
+      sliceWords.push("and");
+    }
+
     if (totalDigits > 1) {
       if (tensAndUnitsValue > 0 && tensAndUnitsValue < 20) {
         sliceWords.push(ONES[tensAndUnitsValue]);
