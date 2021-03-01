@@ -32,7 +32,7 @@ const TENS = {
   9: "ninety",
 };
 
-const LARGES = {
+const LARGE_ONES = {
   0: "thousand",
   1: "million",
   2: "billion",
@@ -43,37 +43,30 @@ const LARGES = {
   7: "septillion",
   8: "octillion",
   9: "nonillion",
-  10: "decillion",
-  11: "undecillion",
-  12: "duodecillion",
-  13: "tredecillion",
-  14: "quattuordecillion",
-  15: "quindecillion",
-  16: "sedecillion",
-  17: "septendecillion",
-  18: "octodecillion",
-  19: "novendecillion",
-  20: "vigintillion",
-  21: "unvigintillion",
-  22: "duovigintillion",
-  23: "tresvigintillion",
-  24: "quattuorvigintillion",
-  25: "quinvigintillion",
-  26: "sesvigintillion",
-  27: "septemvigintillion",
-  28: "octovigintillion",
-  29: "novemvigintillion",
-  30: "trigintillion",
-  31: "untrigintillion",
-  32: "duotrigintillion",
-  33: "trestrigintillion",
-  34: "quattuortrigintillion",
-  35: "quintrigintillion",
-  36: "sestrigintillion",
-  37: "septentrigintillion",
-  38: "octotrigintillion",
-  39: "noventrigintillion",
-  40: "quadragintillion",
+};
+
+const LARGE_ONES_PREFIX = {
+  1: "un",
+  2: "duo",
+  3: "tres",
+  4: "quattuor",
+  5: "quin",
+  6: "sex",
+  7: "septen",
+  8: "octo",
+  9: "noven",
+};
+
+const LARGE_TENS = {
+  1: "decillion",
+  2: "vigintillion",
+  3: "trigintillion",
+  4: "quadragintillion",
+  5: "quinquagintillion",
+  6: "sexagintillion",
+  7: "septuagintillion",
+  8: "octogintillion",
+  9: "nonagintillion",
 };
 
 const HUNDRED = "hundred";
@@ -132,7 +125,7 @@ function convertNumberToWords() {
     }
 
     if (sliceWords) {
-      if (index > 0) sliceWords.push(LARGES[index - 1]);
+      sliceWords.push(convertLargeNumberToWords(index));
       words.unshift(sliceWords.join(SPACE));
     }
   });
@@ -155,4 +148,17 @@ function sliceNumber(number, sliceLenght) {
   }
 
   return slices;
+}
+
+function convertLargeNumberToWords(number) {
+  if (number < 1) return;
+  number--;
+  let digits = sliceNumber(number, 1);
+  const totalDigits = digits.length;
+
+  if (totalDigits === 2) {
+    return (LARGE_ONES_PREFIX[digits[1]] || "") + LARGE_TENS[digits[0]];
+  } else if (totalDigits === 1) {
+    return LARGE_ONES[number];
+  }
 }
