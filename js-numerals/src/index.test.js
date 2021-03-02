@@ -65,6 +65,36 @@ function runConvertNumberToWordsTests() {
   test(convertNumberToWords, "77", "seventy-seven");
   test(convertNumberToWords, "88", "eighty-eight");
   test(convertNumberToWords, "99", "ninety-nine");
+
+  //setup hundreds
+  test(convertNumberToWords, "111", "one hundred and eleven");
+  test(convertNumberToWords, "222", "two hundred and twenty-two");
+  test(convertNumberToWords, "333", "three hundred and thirty-three");
+  test(convertNumberToWords, "444", "four hundred and forty-four");
+  test(convertNumberToWords, "555", "five hundred and fifty-five");
+  test(convertNumberToWords, "666", "six hundred and sixty-six");
+  test(convertNumberToWords, "777", "seven hundred and seventy-seven");
+  test(convertNumberToWords, "888", "eight hundred and eighty-eight");
+  test(convertNumberToWords, "999", "nine hundred and ninety-nine");
+
+  //setup thousand 
+  test(convertNumberToWords, "1000", "one thousand");
+
+  //setup tens and units having 'and' conjunction even without hundreds
+  test(convertNumberToWords, "1001", "one thousand and one");
+  test(convertNumberToWords, "1011", "one thousand and eleven");
+  test(convertNumberToWords, "1021", "one thousand and twenty-one");
+
+  //setup larger than hundreds
+  test(convertNumberToWords, "1111", "one thousand one hundred and eleven");
+  test(convertNumberToWords, "2222", "two thousand two hundred and twenty-two");
+  test(convertNumberToWords, "3333", "three thousand three hundred and thirty-three");
+  test(convertNumberToWords, "4444", "four thousand four hundred and forty-four");
+  test(convertNumberToWords, "5555", "five thousand five hundred and fifty-five");
+  test(convertNumberToWords, "6666", "six thousand six hundred and sixty-six");
+  test(convertNumberToWords, "7777", "seven thousand seven hundred and seventy-seven");
+  test(convertNumberToWords, "8888", "eight thousand eight hundred and eighty-eight");
+  test(convertNumberToWords, "9999", "nine thousand nine hundred and ninety-nine");
 }
 
 runConvertNumberToWordsTests();
