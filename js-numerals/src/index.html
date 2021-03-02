@@ -5,10 +5,12 @@
     <title>Assessment</title>
 
     <link rel="stylesheet" href="index.css" />
-    <script src="index.js"></script>
+    <script type="module" src="./index.js"></script>
+    <script type="module" src="./numbers.js"></script>
   </head>
   <body>
-    <form onsubmit="convertNumberToWords()" class="form">
+    <iframe name="dummyframe" id="dummyframe" style="display: none"></iframe>
+    <form id="numberForm" target="dummyframe" class="form">
       <label for="number">Number</label>
       <input id="number" type="number" />
       <button type="submit">Submit</button>
