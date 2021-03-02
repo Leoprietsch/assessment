@@ -4,7 +4,11 @@ document.querySelector("form").submit(function (event) {
   event.preventDefault();
 });
 
-document.querySelector("button").addEventListener("click", () => (document.getElementById("").innerHTML = convertNumberToWords(document.getElementById("number").value)));
+document
+  .querySelector("button")
+  .addEventListener("click", () =>
+    convertNumberToWords(document.getElementById("number").value)
+  );
 
 function convertNumberToWords(number) {
   try {
@@ -12,6 +16,8 @@ function convertNumberToWords(number) {
   } catch (ex) {
     return "The inputed number is not valid!";
   }
+
+  if (number == 0) return NUMBERS.ONES[number];
 
   let words = [];
   const SPACE = " ";
@@ -67,7 +73,7 @@ function convertNumberToWords(number) {
     }
   });
 
-  alert(words.join(SPACE));
+  return words.join(SPACE);
 }
 
 function sliceNumber(number, sliceLenght) {
