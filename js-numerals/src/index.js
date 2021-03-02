@@ -62,7 +62,7 @@ function convertNumberToWords(number) {
     }
 
     if (sliceWords) {
-      sliceWords.push(convertLargeNumberToWords(index));
+      if (index > 0) sliceWords.push(convertLargeNumberToWords(index));
       words.unshift(sliceWords.join(SPACE));
     }
   });
