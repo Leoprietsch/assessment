@@ -87,10 +87,10 @@ function sliceNumber(number, sliceLenght) {
   return slices;
 }
 
-function convertLargeNumberToWords(number) {
-  if (number < 1) return;
-  number--;
-  let digits = sliceNumber(number, 1);
+function convertLargeNumberToWords(sliceIndex) {
+  if (sliceIndex < 1) return;
+  sliceIndex--;
+  let digits = sliceNumber(sliceIndex, 1);
   const totalDigits = digits.length;
 
   if (totalDigits === 2) {
@@ -99,6 +99,6 @@ function convertLargeNumberToWords(number) {
       LARGE_NUMBERS.TENS[digits[0]]
     );
   } else if (totalDigits === 1) {
-    return LARGE_NUMBERS.ONES[number];
+    return LARGE_NUMBERS.ONES[sliceIndex];
   }
 }
