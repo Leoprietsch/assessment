@@ -1,20 +1,16 @@
 import { NUMBERS, LARGE_NUMBERS } from "./numbers.js";
 
-document.querySelector("form").submit(function (event) {
-  event.preventDefault();
+document.querySelector("button").addEventListener("click", () => {
+  let words = convertNumberToWords(document.getElementById("number").value);
+  document.getElementById("words").innerHTML = words;
 });
 
-document
-  .querySelector("button")
-  .addEventListener("click", () =>
-    convertNumberToWords(document.getElementById("number").value)
-  );
-
 export function convertNumberToWords(number) {
+  if (number.length > 303) return "Number has more than 303 digits.";
   try {
     number = BigInt(number);
   } catch (ex) {
-    return "The inputed number is not valid!";
+    return "Maybe try to type arabic numbers?";
   }
 
   if (number == 0) return NUMBERS.ONES[number];
