@@ -7,8 +7,12 @@ document.querySelector("form").submit(function (event) {
 document.querySelector("button").addEventListener("click", () => (document.getElementById("").innerHTML = convertNumberToWords(document.getElementById("number").value)));
 
 function convertNumberToWords(number) {
-  number = BigInt(number);
-  if (number == 0) return NUMBERS.ONES[number];
+  try {
+    number = BigInt(number);
+  } catch (ex) {
+    return "The inputed number is not valid!";
+  }
+
   let words = [];
   const SPACE = " ";
 
