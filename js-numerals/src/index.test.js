@@ -44,6 +44,27 @@ function runConvertNumberToWordsTests() {
   test(convertNumberToWords, "17", "seventeen");
   test(convertNumberToWords, "18", "eighteen");
   test(convertNumberToWords, "19", "nineteen");
+
+  //setup tens
+  test(convertNumberToWords, "20", "twenty");
+  test(convertNumberToWords, "30", "thirty");
+  test(convertNumberToWords, "40", "forty");
+  test(convertNumberToWords, "50", "fifty");
+  test(convertNumberToWords, "60", "sixty");
+  test(convertNumberToWords, "70", "seventy");
+  test(convertNumberToWords, "80", "eighty");
+  test(convertNumberToWords, "90", "ninety");
+
+  //setup tens with ones
+  test(convertNumberToWords, "21", "twenty-one");
+  test(convertNumberToWords, "22", "twenty-two");
+  test(convertNumberToWords, "33", "thirty-three");
+  test(convertNumberToWords, "44", "forty-four");
+  test(convertNumberToWords, "55", "fifty-five");
+  test(convertNumberToWords, "66", "sixty-six");
+  test(convertNumberToWords, "77", "seventy-seven");
+  test(convertNumberToWords, "88", "eighty-eight");
+  test(convertNumberToWords, "99", "ninety-nine");
 }
 
 runConvertNumberToWordsTests();
