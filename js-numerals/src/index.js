@@ -93,7 +93,7 @@ function sliceNumber(number, sliceLenght) {
   return slices;
 }
 
-function convertLargeNumberToWords(sliceIndex) {
+export function convertLargeNumberToWords(sliceIndex) {
   if (sliceIndex < 1) return;
   sliceIndex--;
   let digits = sliceNumber(sliceIndex, 1);

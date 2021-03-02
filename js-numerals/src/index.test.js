@@ -1,4 +1,4 @@
-import { convertNumberToWords } from "./index.js";
+import { convertNumberToWords, convertLargeNumberToWords } from "./index.js";
 
 function test(testFunction, parameter, expectedOutput) {
   const funcName = testFunction.name;
@@ -19,8 +19,6 @@ function test(testFunction, parameter, expectedOutput) {
 }
 
 function runConvertNumberToWordsTests() {
-  console.log("Convert number function tests");
-
   //setup ones
   test(convertNumberToWords, 0, "zero");
   test(convertNumberToWords, 1, "one");
@@ -131,4 +129,40 @@ function runConvertNumberToWordsTests() {
   test(convertNumberToWords, "1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "one novennonagintillion");
 }
 
+function runConvertLargeNumberToWordsTests() {
+  //setup large ones
+  test(convertLargeNumberToWords, 1, "thousand");
+  test(convertLargeNumberToWords, 2, "million");
+  test(convertLargeNumberToWords, 3, "billion");
+  test(convertLargeNumberToWords, 4, "trillion");
+  test(convertLargeNumberToWords, 5, "quadrillion");
+  test(convertLargeNumberToWords, 6, "quintillion");
+  test(convertLargeNumberToWords, 7, "sextillion");
+  test(convertLargeNumberToWords, 8, "septillion");
+  test(convertLargeNumberToWords, 9, "octillion");
+  test(convertLargeNumberToWords, 10, "nonillion");
+
+  //setup large tens
+  test(convertLargeNumberToWords, 11, "decillion");
+  test(convertLargeNumberToWords, 21, "vigintillion");
+  test(convertLargeNumberToWords, 31, "trigintillion");
+  test(convertLargeNumberToWords, 41, "quadragintillion");
+  test(convertLargeNumberToWords, 51, "quinquagintillion");
+  test(convertLargeNumberToWords, 61, "sexagintillion");
+  test(convertLargeNumberToWords, 71, "septuagintillion");
+  test(convertLargeNumberToWords, 81, "octogintillion");
+  test(convertLargeNumberToWords, 91, "nonagintillion");
+
+  test(convertLargeNumberToWords, 12, "undecillion");
+  test(convertLargeNumberToWords, 23, "duovigintillion");
+  test(convertLargeNumberToWords, 34, "trestrigintillion");
+  test(convertLargeNumberToWords, 45, "quattuorquadragintillion");
+  test(convertLargeNumberToWords, 56, "quinquinquagintillion");
+  test(convertLargeNumberToWords, 67, "sexsexagintillion");
+  test(convertLargeNumberToWords, 78, "septenseptuagintillion");
+  test(convertLargeNumberToWords, 89, "octooctogintillion");
+  test(convertLargeNumberToWords, 100, "novennonagintillion");
+}
+
 runConvertNumberToWordsTests();
+runConvertLargeNumberToWordsTests();
