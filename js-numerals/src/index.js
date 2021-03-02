@@ -10,7 +10,7 @@ document
     convertNumberToWords(document.getElementById("number").value)
   );
 
-function convertNumberToWords(number) {
+export function convertNumberToWords(number) {
   try {
     number = BigInt(number);
   } catch (ex) {
