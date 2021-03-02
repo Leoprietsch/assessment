@@ -1,18 +1,21 @@
 import { convertNumberToWords } from "./index.js";
 
-let testFunction = convertNumberToWords;
-let parameter = 10;
-let expectedOutput = "ten";
-let result = testFunction(parameter);
+function test(testFunction, parameter, expectedOutput) {
+  const funcName = testFunction.name;
+  const result = testFunction(parameter);
 
-console.log(
-  "Function: " +
-    testFunction.name.concat("()") +
-    "\nParameter: " +
-    parameter +
-    "\nExpected result: " +
-    expectedOutput +
-    "\nActual result: " +
-    result
-);
-console.assert(result === expectedOutput);
+  console.log(
+    "Function: " +
+      funcName.concat("()") +
+      "\nParameter: " +
+      parameter +
+      "\nExpected result: " +
+      expectedOutput +
+      "\nActual result: " +
+      result
+  );
+
+  console.assert(result === expectedOutput);
+}
+
+test(convertNumberToWords, 10, "ten");
