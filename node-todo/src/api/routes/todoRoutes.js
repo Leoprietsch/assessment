@@ -1,23 +1,14 @@
-var todoRoutes = require("express").Router();
+const todoRoutes = require("express").Router();
+const todoController = require("../controllers/todoController");
 
-todoRoutes.get("/", (request, response) => {
-  response.send("GET TODOS");
-});
+todoRoutes.get("/", todoController.getAll);
 
-todoRoutes.post("/", (request, response) => {
-  response.send("POST TODO");
-});
+todoRoutes.post("/", todoController.post);
 
-todoRoutes.get("/:id", (request, response) => {
-  response.send("GET TODO");
-});
+todoRoutes.get("/:id", todoController.get);
 
-todoRoutes.put("/:id", (request, response) => {
-  response.send("PUT TODO");
-});
+todoRoutes.put("/:id", todoController.put);
 
-todoRoutes.delete("/:id", (request, response) => {
-  response.send("DELETE TODO");
-});
+todoRoutes.delete("/:id", todoController.delete);
 
 module.exports = todoRoutes;
