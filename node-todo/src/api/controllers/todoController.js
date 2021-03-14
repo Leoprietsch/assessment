@@ -41,9 +41,15 @@ exports.put = (request, response) => {
     done: Boolean(body.done),
   });
 
+  //TO-DO: Remove todos that is done for 5 minutes
+
   response.status(200).json(todo);
 };
 
 exports.delete = (request, response) => {
-  response.send("DELETE TODO");
+  const id = String(request.params.id);
+
+  db = db.filter((todo) => todo.id !== id);
+
+  response.status(204).end();
 };
