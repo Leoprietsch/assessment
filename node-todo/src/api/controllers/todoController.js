@@ -1,5 +1,8 @@
+var db = [];
+
 exports.getAll = (request, response) => {
-  response.send("GET TODOS");
+  const todos = db;
+  response.json(todos);
 };
 
 exports.post = (request, response) => {
