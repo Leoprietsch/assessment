@@ -29,7 +29,19 @@ exports.get = (request, response) => {
 };
 
 exports.put = (request, response) => {
-  response.send("PUT TODO");
+  const id = request.params.id;
+  const body = request.body;
+
+  const todoIndex = db.findIndex((todo) => todo.id === id);
+
+  let todo = (db[todoIndex] = {
+    ...db[todoIndex],
+    text: String(body.text),
+    priority: Number.parseInt(body.priority),
+    done: Boolean(body.done),
+  });
+
+  response.status(200).json(todo);
 };
 
 exports.delete = (request, response) => {
