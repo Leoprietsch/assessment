@@ -22,7 +22,10 @@ exports.post = (request, response) => {
 };
 
 exports.get = (request, response) => {
-  response.send("GET TODO");
+  const id = request.params.id;
+  const todo = db.find((todo) => todo.id === id);
+
+  response.status(200).json(todo);
 };
 
 exports.put = (request, response) => {
