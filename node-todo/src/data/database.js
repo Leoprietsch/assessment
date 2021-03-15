@@ -3,6 +3,10 @@ const path = require("path");
 const fileName = path.resolve(__dirname, "database.json");
 
 exports.read = () => {
+  if (!fs.existsSync(fileName)) {
+    fs.writeFileSync(fileName, JSON.stringify([]));
+  }
+
   const data = fs.readFileSync(fileName, (err, data) => {
     if (err) throw err;
     console.log(err);
