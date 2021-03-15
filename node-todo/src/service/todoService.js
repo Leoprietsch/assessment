@@ -1,40 +1,47 @@
-var db = [];
-var id = 1;
+const uniqid = require("uniqid");
+const todoRepository = require("../data/database");
 
 exports.getAll = () => {
-  const todos = db;
+  const todos = todoRepository.read();
   return todos;
 };
 
 exports.create = (todo) => {
   let newTodo = {
-    id: String(id++),
+    id: uniqid(),
     text: String(todo.text),
     priority: Number.parseInt(todo.priority) || 3,
     done: Boolean(todo.done),
   };
 
-  db.push(newTodo);
+  let todos = todoRepository.read();
+  todos.push(newTodo);
+  todoRepository.write(todos);
 
   return newTodo;
 };
 
 exports.getById = (id) => {
-  const todo = db.find((todo) => todo.id === id);
+  const todos = todoRepository.read();
+
+  const todo = todos.find((todo) => todo.id === id);
 
   return todo;
 };
 
 exports.update = (id, todo) => {
-  const todoIndex = db.findIndex((todo) => todo.id === id);
+  let todos = todoRepository.read();
 
-  let updatedTodo = (db[todoIndex] = {
-    ...db[todoIndex],
+  const todoIndex = todos.findIndex((todo) => todo.id === id);
+
+  let updatedTodo = (todos[todoIndex] = {
+    ...todos[todoIndex],
     text: String(todo.text),
     priority: Number.parseInt(todo.priority),
     done: Boolean(todo.done),
   });
 
+  todoRepository.write(todos);
   //TO-DO: Remove todos that is done for 5 minutes
 
   return updatedTodo;
@@ -43,5 +50,9 @@ exports.update = (id, todo) => {
 exports.delete = (id) => {
   const idString = String(id);
 
-  db = db.filter((todo) => todo.id !== idString);
+  let todos = todoRepository.read();
+
+  todos = todos.filter((todo) => todo.id !== idString);
+
+  todoRepository.write(todos);
 };
