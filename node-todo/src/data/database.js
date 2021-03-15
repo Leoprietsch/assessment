@@ -9,7 +9,6 @@ exports.read = () => {
 
   const data = fs.readFileSync(fileName, (err, data) => {
     if (err) throw err;
-    console.log(err);
   });
 
   const todos = JSON.parse(data.toString() || "[]");
