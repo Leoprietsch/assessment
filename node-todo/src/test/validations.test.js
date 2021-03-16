@@ -50,3 +50,54 @@ describe("text validation", () => {
     expect(result).toEqual(expect.stringMatching(text));
   });
 });
+
+describe("priority validation", () => {
+  test("priority of type string to throw error", () => {
+    const priority = "";
+
+    expect(() => validations.priority(priority)).toThrow(
+      "Priority must be a integer from 1 to 5"
+    );
+  });
+
+  test("priority of type boolean to throw error", () => {
+    const priority = false;
+
+    expect(() => validations.priority(priority)).toThrow(
+      "Priority must be a integer from 1 to 5"
+    );
+  });
+
+  test("priority to throw error when is not integer", () => {
+    const priority = 3.5;
+
+    expect(() => validations.priority(priority)).toThrow(
+      "Priority must be a integer from 1 to 5"
+    );
+  });
+
+  test("priority to throw error when smaller than 1", () => {
+    const priority = 0;
+
+    expect(() => validations.priority(priority)).toThrow(
+      "Priority must be a integer from 1 to 5"
+    );
+  });
+
+  test("priority to throw error when larger than 5", () => {
+    const priority = 6;
+
+    expect(() => validations.priority(priority)).toThrow(
+      "Priority must be a integer from 1 to 5"
+    );
+  });
+
+  test("priority of type number, and in the range 1 to 5, to return own value", () => {
+    const priority = 3;
+
+    const result = validations.priority(priority);
+
+    expect(() => validations.priority(priority)).not.toThrow();
+    expect(result).toBe(priority);
+  });
+});
