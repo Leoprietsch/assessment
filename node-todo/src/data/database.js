@@ -7,8 +7,8 @@ exports.read = () => {
     fs.writeFileSync(fileName, JSON.stringify([]));
   }
 
-  const data = fs.readFileSync(fileName, (err, data) => {
-    if (err) throw err;
+  const data = fs.readFileSync(fileName, (error, data) => {
+    if (error) throw error;
   });
 
   const todos = JSON.parse(data.toString() || "[]");
@@ -19,7 +19,7 @@ exports.read = () => {
 exports.write = (todos) => {
   const data = JSON.stringify(todos, null, 2);
 
-  fs.writeFileSync(fileName, data, (err) => {
-    if (err) throw err;
+  fs.writeFileSync(fileName, data, (error) => {
+    if (error) throw error;
   });
 };
