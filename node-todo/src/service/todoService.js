@@ -1,6 +1,8 @@
 const todoRepository = require("../repository/todoRepository");
 const validations = require("../utils/validations");
 
+let trash = {};
+
 exports.getAll = () => {
   const todos = todoRepository.getAll();
   return todos;
@@ -48,7 +50,9 @@ exports.update = (id, body) => {
   };
 
   const updatedTodo = todoRepository.update(existingTodo);
-  //TO-DO: Remove todos that is done for 5 minutes
+
+  if (updatedTodo.done) scheduleDeletion(updatedTodo.id, 5 * 1000 * 60);
+  else cancelDeletion(updatedTodo.id);
 
   return updatedTodo;
 };
@@ -59,4 +63,16 @@ exports.delete = (id) => {
   const todo = todoRepository.getById(idString);
 
   todoRepository.delete(todo.id);
+};
+
+const scheduleDeletion = (id, time) => {
+  trash[id] = setTimeout(() => {
+    this.delete(id);
+    delete trash[id];
+  }, time);
+};
+
+const cancelDeletion = (id) => {
+  clearTimeout(trash[id]);
+  delete trash[id];
 };
