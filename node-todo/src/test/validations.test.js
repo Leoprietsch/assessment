@@ -15,3 +15,38 @@ describe("body validation", () => {
     );
   });
 });
+
+describe("text validation", () => {
+  test("text of type number throw error", () => {
+    const text = 0;
+
+    expect(() => validations.text(text)).toThrow(
+      "Text is required and must not be an empty string"
+    );
+  });
+
+  test("text of type boolean throw error", () => {
+    const text = false;
+
+    expect(() => validations.text(text)).toThrow(
+      "Text is required and must not be an empty string"
+    );
+  });
+
+  test("empty string text throw error", () => {
+    const text = "";
+
+    expect(() => validations.text(text)).toThrow(
+      "Text is required and must not be an empty string"
+    );
+  });
+
+  test("string text not empty returns own value", () => {
+    const text = "Text";
+
+    const result = validations.text(text);
+
+    expect(() => validations.text(text)).not.toThrow();
+    expect(result).toEqual(expect.stringMatching(text));
+  });
+});
