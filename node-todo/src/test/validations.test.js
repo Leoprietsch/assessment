@@ -101,3 +101,26 @@ describe("priority validation", () => {
     expect(result).toBe(priority);
   });
 });
+
+describe("done validation", () => {
+  test("done of type number throw error", () => {
+    const done = 0;
+
+    expect(() => validations.done(done)).toThrow("Done must be a boolean");
+  });
+
+  test("done of type string throw error", () => {
+    const done = "";
+
+    expect(() => validations.done(done)).toThrow("Done must be a boolean");
+  });
+
+  test("done of type boolean returns own value", () => {
+    const done = false;
+
+    const result = validations.done(done);
+
+    expect(() => validations.done(done)).not.toThrow();
+    expect(result).toBe(done);
+  });
+});
