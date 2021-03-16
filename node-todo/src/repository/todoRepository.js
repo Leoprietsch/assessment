@@ -38,7 +38,6 @@ exports.update = (todo) => {
   todos[todoIndex] = todo;
 
   db.write(todos);
-  //TO-DO: Remove todos that is done for 5 minutes
 
   return todo;
 };
