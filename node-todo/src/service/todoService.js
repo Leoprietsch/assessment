@@ -1,15 +1,21 @@
 const todoRepository = require("../repository/todoRepository");
+const validations = require("../utils/validations");
 
 exports.getAll = () => {
   const todos = todoRepository.getAll();
   return todos;
 };
 
-exports.create = (todo) => {
+exports.create = (body) => {
+  validations.body(body);
+  const { text, priority, done } = body;
+
   let newTodo = {
-    text: String(todo.text),
-    priority: Number.parseInt(todo.priority) || 3,
-    done: Boolean(todo.done),
+    text: validations.text(text),
+    priority: body.hasOwnProperty("priority")
+      ? validations.priority(priority)
+      : 3,
+    done: body.hasOwnProperty("done") ? validations.done(done) : false,
   };
 
   newTodo = todoRepository.create(newTodo);
@@ -22,17 +28,26 @@ exports.getById = (id) => {
   return todo;
 };
 
-exports.update = (id, todo) => {
-  const existingTodo = todoRepository.getById(id);
+exports.update = (id, body) => {
+  let existingTodo = todoRepository.getById(id);
 
-  todo = {
+  validations.body(body);
+  const { text, priority, done } = body;
+
+  existingTodo = {
     id: existingTodo.id,
-    text: String(todo.text) || existingTodo.text,
-    priority: Number.parseInt(todo.priority) || existingTodo.priority,
-    done: Boolean(todo.done) || existingTodo.done,
+    text: body.hasOwnProperty("text")
+      ? validations.text(text)
+      : existingTodo.text,
+    priority: body.hasOwnProperty("priority")
+      ? validations.priority(priority)
+      : existingTodo.priority,
+    done: body.hasOwnProperty("done")
+      ? validations.done(done)
+      : existingTodo.done,
   };
-  
-  const updatedTodo = todoRepository.update(todo);
+
+  const updatedTodo = todoRepository.update(existingTodo);
   //TO-DO: Remove todos that is done for 5 minutes
 
   return updatedTodo;
